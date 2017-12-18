@@ -1,0 +1,25 @@
+{
+  "name": "backend-omnivox",
+  "version": "1.0.0",
+  "description": "OmniVox.io is a polling platform optimized for quick anonymous polls for in-person groups. OmniVox.io backend built with Socket.io",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "omni",
+    "vox",
+    "omnivox",
+    "omnivox.io",
+    "polling",
+    "quick",
+    "polls",
+    "survey",
+    "groups",
+    "socket.io",
+    "node",
+    "postgresql"
+  ],
+  "author": "Tassos Lambrou",
+  "license": "ISC"
+}
