@@ -6,13 +6,13 @@ var bodyParser = require('body-parser')
 var cookie = require('cookie')
 var cookieParser = require('cookie-parser')
 var acceptOverride = require('connect-acceptoverride')
-const io = require('socket.io')();
 var jwt = require('express-jwt')
 var slugify = require('slugify')
 var moment = require('moment')
 var mongoose = require('mongoose')
+const io = require('socket.io')(http)
 
-const mongoPath = process.env.NODE_ENV === 'development' ? 'mongodb://localhost/omnivox_db' : 'NO_URL_YET'
+const mongoPath = process.env.NODE_ENV === 'development' ? 'mongodb://localhost/omnivox_db' : 'mongodb://localhost/omnivox_db'
 
 app.use(cookieParser())
 mongoose.connect(mongoPath)
@@ -44,6 +44,23 @@ app.use(function (req, res, next) {
 
 // SOCKETS
 
+io.on('connection', (client) => {
+  // Subscribe to Timer
+  client.on('subscribeToTimer', (interval) => {
+    console.log('client is subscribing to timer with interval ', interval);
+    setInterval(() => {
+      client.emit('timer', new Date());
+    }, interval);
+  });
+  // Toggle Vote
+  client.on('toggleVote', (vote) => {
+    client.emit('vote', !vote)
+  })
+});
+
+const socketPort = 8080;
+io.listen(socketPort);
+console.log('Socket.io listening on port ', socketPort);
 
 // SERVER
 var port = process.env.PORT || 8000;
