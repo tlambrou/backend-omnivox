@@ -10,7 +10,7 @@ var jwt = require('express-jwt')
 var slugify = require('slugify')
 var moment = require('moment')
 var mongoose = require('mongoose')
-const io = require('socket.io')(http)
+const io = require('socket.io')()
 
 const mongoPath = process.env.NODE_ENV === 'development' ? 'mongodb://localhost/omnivox_db' : 'mongodb://localhost/omnivox_db'
 
@@ -54,6 +54,7 @@ io.on('connection', (client) => {
   });
   // Toggle Vote
   client.on('toggleVote', (vote) => {
+    console.log('SERVER: client is toggling! ', vote);
     client.emit('vote', !vote)
   })
 });
