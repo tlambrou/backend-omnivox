@@ -43,6 +43,9 @@ app.use(function (req, res, next) {
 
 
 // SOCKETS
+const socketPort = 8080;
+io.listen(socketPort);
+console.log('Socket.io listening on port ', socketPort);
 
 io.on('connection', (client) => {
   // Subscribe to Timer
@@ -59,9 +62,7 @@ io.on('connection', (client) => {
   })
 });
 
-const socketPort = 8080;
-io.listen(socketPort);
-console.log('Socket.io listening on port ', socketPort);
+
 
 // SERVER
 var port = process.env.PORT || 8000;
